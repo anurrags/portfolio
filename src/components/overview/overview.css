@@ -1,0 +1,25 @@
+.overview-container {
+  padding: 2rem 4rem 4rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.overview-intro {
+  width: 40vw;
+}
+.overview-intro > h1 {
+  font-size: 3.5rem;
+}
+
+.overview-intro > p {
+  font-size: 1.2rem;
+}
+
+.rotated-curve {
+  transform: rotate(180deg);
+}
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem;
+}

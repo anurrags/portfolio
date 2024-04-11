@@ -1,0 +1,73 @@
+.gradient-border {
+  background: linear-gradient(181deg, #2e006e 50%, #000000c5 100%);
+  border-radius: 15px;
+  padding: 3px;
+  transition: transform 0.6s ease;
+}
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  height: 12rem;
+  transition: transform 0.6s ease;
+  transition: background-color 0.2s ease-in-out;
+  background-color: var(--gray-light);
+}
+.card-container div {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  align-items: center;
+}
+.card-container div h1 {
+  font-size: 1.5rem;
+}
+.card-svg {
+  height: 68px;
+  width: 68px;
+  animation: diagonal-motion-1 4s infinite ease-in-out;
+}
+@keyframes diagonal-motion-1 {
+  0% {
+    transform: translateX(-3px) translateY(-3px);
+  }
+  25% {
+    transform: translateX(0px) translateY(0px);
+  }
+  50% {
+    transform: translateX(3px) translateY(-3px);
+  }
+  75% {
+    transform: translateX(0px) translateY(-6px);
+  }
+  100% {
+    transform: translateX(-3px) translateY(-3px);
+  }
+}
+.card-desc {
+  font-size: 1px;
+  text-align: center;
+  visibility: hidden;
+  transition: font-size 0.2s ease-in-out;
+}
+.gradient-border:hover {
+  transform: scale(1.05);
+}
+.gradient-border:hover .card-container {
+  background-color: transparent;
+  color: #fff;
+}
+.gradient-border:hover .card-container .card-desc {
+  visibility: visible;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.gradient-border:hover .card-container div .card-svg {
+  animation: none;
+}
