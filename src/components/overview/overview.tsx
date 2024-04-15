@@ -8,9 +8,9 @@ const desc: string[] = [
   "Proficient backend architect, ensuring robust, scalable server-side solutions",
   "Advocate for clean code, prioritizing readability and maintainability always",
 ];
-const overview = () => {
+const Overview = () => {
   return (
-    <div className="overview-container">
+    <div id="overviewContainer" className="overview-container">
       <div className="overview-intro">
         <h1>Overview</h1>
         <p>
@@ -32,4 +32,4 @@ const overview = () => {
   );
 };
 
-export default overview;
+export default Overview;

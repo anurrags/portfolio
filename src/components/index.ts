@@ -1,11 +1,8 @@
-import card from "./card/card";
-import headers from "./headers/headers";
-import hero from "./hero/hero";
-import overview from "./overview/overview";
-import skill from "./skill/skill";
-
-export const Header = headers;
-export const Hero = hero;
-export const Overview = overview;
-export const Card = card;
-export const Skill = skill;
+export { default as Header } from "./headers";
+export { default as Hero } from "./hero";
+export { default as Overview } from "./overview";
+export { default as Card } from "./card";
+export { default as Experience } from "./experience";
+export { default as Timeline } from "./timeline";
+export { default as Skill } from "./skill";
+export { default as Contact } from "./contact";

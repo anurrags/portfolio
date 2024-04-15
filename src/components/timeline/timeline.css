@@ -1,0 +1,45 @@
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.vertical-timeline-element--work {
+  margin-bottom: 8rem !important;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.vertical-timeline-element-date {
+  color: #fff;
+}
+.vertical-timeline-element-content > h2 {
+  font-size: 2rem;
+  padding: 0.5rem 0;
+}
+.vertical-timeline-element-content > h3 {
+  font-size: 1rem;
+}
+.vertical-timeline-element-content > pre {
+  overflow-x: scroll;
+  padding: 2rem 0;
+}
+.vertical-timeline-element-date {
+  font-weight: 800;
+}
+.vertical-timeline-element-icon:hover {
+  background-color: #ff9736 !important;
+  cursor: pointer;
+}

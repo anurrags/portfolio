@@ -49,7 +49,23 @@
 .intro-name {
   animation: flickering 4s linear 0.5s both;
 }
-
+.resume-btn {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  padding: 0.8rem 2rem;
+  width: fit-content;
+  background: #000;
+  box-shadow: 0 8px 32px #1f26875e;
+  border-radius: 9px;
+  border: 1.5px solid var(--green-terminal);
+  font-weight: 700;
+  cursor: pointer;
+  align-self: center;
+  color: #fff;
+}
+.resume-btn:hover {
+  border: 1.8px solid var(--blue);
+}
 .main-content-icons {
   position: relative;
 }

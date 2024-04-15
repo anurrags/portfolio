@@ -1,0 +1,15 @@
+.contact-main-div {
+  background-color: var(--dark-purple);
+}
+.contact-h1 {
+  font-size: 3rem;
+  color: #fff;
+  text-align: center;
+}
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.form-container {
+  padding-left: 4rem;
+}

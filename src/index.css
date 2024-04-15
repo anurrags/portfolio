@@ -62,7 +62,8 @@ a:active {
   color: inherit;
 }
 
-div {
+div,
+p {
   margin: 0;
   padding: 0;
 }

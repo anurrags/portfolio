@@ -1,0 +1,58 @@
+.carousel-div {
+  overflow-x: hidden;
+  display: flex;
+  height: 100%;
+}
+.carousel-container {
+  display: flex;
+  gap: 5rem;
+  padding: 2rem;
+  overflow-x: hidden;
+  white-space: nowrap;
+  animation: infiniteSlide 12s linear infinite;
+  height: 100%;
+}
+.carousel-container:hover {
+  animation-play-state: paused;
+}
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 32px #1f26875e;
+  border-radius: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+.carousel-svg {
+  height: 6rem;
+  width: 6rem;
+  padding: 0.8rem;
+}
+.item-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: none;
+}
+.item:hover {
+  transform: scale(1.04) rotate(-1deg);
+}
+.item:hover .carousel-svg {
+  height: 3rem;
+  filter: blur(16px);
+  animation: anim 3s infinite;
+}
+.item:hover .item-title {
+  display: inline;
+}
+@keyframes infiniteSlide {
+  from {
+    transform: translateX(1rem);
+  }
+  to {
+    transform: translate(-50%);
+  }
+}

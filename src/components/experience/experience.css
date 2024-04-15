@@ -1,0 +1,9 @@
+.experience-container {
+  position: relative;
+  background-color: var(--dark-purple);
+  padding-bottom: 8rem;
+}
+.curve-svg-experience {
+  position: absolute;
+  bottom: 0;
+}

@@ -1,5 +1,18 @@
 .skill-container {
-  width: 100vw;
-  height: 50rem;
-  background-color: var(--dark-purple);
+  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding-left: 6rem;
+  align-items: center;
+}
+.skill-text {
+  padding: 6rem 2rem 6rem 6rem;
+  box-shadow: 3px 25px 15px -23px var(--accent-dark) inset,
+    14px -5px 9px -21px var(--accent-dark), 15px 0 18px -20px var(--accent-dark);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.skill-text h1 {
+  padding: 0;
+  font-size: 5rem;
 }

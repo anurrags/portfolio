@@ -6,7 +6,7 @@ interface CardProps {
   logo: string;
   desc: string;
 }
-const card: React.FC<CardProps> = ({ title, logo, desc }) => {
+const Card: React.FC<CardProps> = ({ title, logo, desc }) => {
   return (
     <div className="gradient-border">
       <div className="card-container">
@@ -21,4 +21,4 @@ const card: React.FC<CardProps> = ({ title, logo, desc }) => {
   );
 };
 
-export default card;
+export default Card;

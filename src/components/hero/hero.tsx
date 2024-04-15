@@ -1,10 +1,10 @@
 import React from "react";
 import "./hero.css";
 
-const hero = () => {
+const Hero = () => {
   return (
     <>
-      <div className="hero-container">
+      <div id="heroContainer" className="hero-container">
         <div className="hero-main-content">
           <div className="main-content-intro">
             <h1>
@@ -18,6 +18,11 @@ const hero = () => {
               <span className="intro-h2-gt intro-h2">{"> "}</span>
               <span className="intro-h2">A fullstack developer</span>
             </h2>
+            <div className="resume-btn">
+              <a href="./docs/Anurag_resume.pdf" target="_blank">
+                Download Resume
+              </a>
+            </div>
           </div>
           <div className="main-content-icons">
             <img src="./user-photo.png" className="user-photo" alt="" />
@@ -95,4 +100,4 @@ const hero = () => {
   );
 };
 
-export default hero;
+export default Hero;

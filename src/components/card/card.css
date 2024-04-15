@@ -13,16 +13,18 @@
   padding: 4rem 2rem;
   border: 1px solid transparent;
   border-radius: 15px;
-  height: 12rem;
+  height: 13rem;
   transition: transform 0.6s ease;
-  transition: background-color 0.2s ease-in-out;
-  background-color: var(--gray-light);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 253, 1) 0%,
+    rgba(222, 255, 255, 1) 100%
+  );
 }
 .card-container div {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
   align-items: center;
 }
 .card-container div h1 {
@@ -53,20 +55,23 @@
 .card-desc {
   font-size: 1px;
   text-align: center;
-  visibility: hidden;
-  transition: font-size 0.2s ease-in-out;
+  opacity: 0;
+  transition: font-size 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 .gradient-border:hover {
   transform: scale(1.05);
 }
 .gradient-border:hover .card-container {
-  background-color: transparent;
+  background: transparent;
   color: #fff;
 }
 .gradient-border:hover .card-container .card-desc {
-  visibility: visible;
-  font-size: 1rem;
+  opacity: 100;
+  font-size: 1.3rem;
   font-weight: 700;
+}
+.gradient-border:hover .card-container div {
+  display: none;
 }
 .gradient-border:hover .card-container div .card-svg {
   animation: none;
