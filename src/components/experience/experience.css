@@ -3,6 +3,12 @@
   background-color: var(--dark-purple);
   padding-bottom: 8rem;
 }
+.experience-container > h1 {
+  color: #fff;
+  font-size: 3rem;
+  text-align: center;
+  padding-bottom: 4rem;
+}
 .curve-svg-experience {
   position: absolute;
   bottom: 0;

@@ -4,7 +4,7 @@
   grid-template-columns: 1fr 2fr;
   padding-left: 6rem;
   align-items: center;
-  width: 100vw;
+  overflow-x: hidden;
 }
 .skill-text {
   padding: 6rem 2rem 6rem 6rem;
@@ -16,4 +16,7 @@
 .skill-text h1 {
   padding: 0;
   font-size: 5rem;
+}
+.skill-carousel {
+  width: inherit;
 }
