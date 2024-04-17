@@ -1,5 +1,6 @@
 .contact-main-div {
   background-color: var(--dark-purple);
+  padding-bottom: 10rem;
 }
 .contact-h1 {
   font-size: 3rem;
@@ -8,8 +9,12 @@
 }
 .contact-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 5rem;
 }
 .form-container {
   padding-left: 4rem;
+}
+.contact-img {
+  height: 30rem;
 }
