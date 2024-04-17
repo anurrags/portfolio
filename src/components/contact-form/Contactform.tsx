@@ -5,7 +5,12 @@ const Contactform = () => {
       <h1>
         Contact <span className="us">Me</span>
       </h1>
-      <form className="contact-form" action="" method="POST">
+      <form
+        name="contact"
+        className="contact-form"
+        data-netlify="true"
+        method="POST"
+      >
         <input
           className="contact-form-input"
           type="name"
