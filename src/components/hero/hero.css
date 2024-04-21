@@ -2,7 +2,7 @@
   position: relative;
   transition: 0.9s ease;
   display: flex;
-  min-height: 100vh;
+  min-height: 120vh;
   background: linear-gradient(var(--gradient));
   padding-bottom: 15rem;
 }
@@ -47,7 +47,7 @@
   color: var(--green-terminal);
 }
 .intro-name {
-  animation: flickering 4s linear 0.5s both;
+  animation: flickering 2s linear 0.5s both;
 }
 .resume-btn {
   font-size: 1.3rem;
@@ -72,6 +72,8 @@
 .user-photo {
   height: 35rem;
   width: auto;
+  opacity: 0;
+  animation: appear 1s linear 1s forwards;
 }
 .social {
   display: flex;
@@ -79,7 +81,6 @@
   gap: 16px;
   position: absolute;
   z-index: 80;
-  animation: slideIn 1s ease-in-out forwards;
 }
 .social_icon {
   position: absolute;
@@ -112,29 +113,50 @@
 .icon-1 {
   top: 150px;
   left: 110px;
+  transform: translateY(-200px);
+  animation: slideIn 1s ease-in-out forwards;
 }
 .icon-2 {
   bottom: 150px;
   left: 110px;
+  transform: translateY(-600px);
+  animation: expand 0.8s ease forwards;
 }
 .icon-3 {
   top: 150px;
   right: 250px;
+  transform: translateY(-300px);
+  animation: expand 0.8s ease forwards;
 }
 .icon-4 {
   bottom: 150px;
-  right: 150px;
+  right: 200px;
+  transform: translateY(500px);
+  animation: expand 0.6s ease-in-out forwards 0.8s;
 }
 
 @keyframes slideIn {
   0% {
-    transform: translateY(600px) scale(6.2);
+    transform: translateY(600px) scale(9);
   }
   100% {
     transform: translateY(0) scale(1);
   }
 }
 
+@keyframes expand {
+  0% {
+    transform: translateY(1400px) scale(5);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes appear {
+  100% {
+    opacity: 1;
+  }
+}
 @keyframes flickering {
   0% {
     opacity: 0;
