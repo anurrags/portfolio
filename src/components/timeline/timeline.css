@@ -26,11 +26,11 @@
   color: #fff;
 }
 .vertical-timeline-element-content > h2 {
-  font-size: 2rem;
+  font-size: var(--subheading-font-size);
   padding: 0.5rem 0;
 }
 .vertical-timeline-element-content > h3 {
-  font-size: 1rem;
+  font-size: var(--description-font-size);
 }
 .vertical-timeline-element-content > pre {
   overflow-x: scroll;

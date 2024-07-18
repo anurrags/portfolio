@@ -6,8 +6,8 @@ const Carousel = () => {
   return (
     <div className="carousel-div">
       <div className="carousel-container">
-        {newArray.map((item) => (
-          <div className="item">
+        {newArray.map((item, index) => (
+          <div className="item" key={index}>
             <img className="carousel-svg" src={item.imgSrc} alt={item.imgAlt} />
             <p className="item-title">{item.title}</p>
           </div>

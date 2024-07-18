@@ -5,7 +5,7 @@
 }
 .experience-container > h1 {
   color: #fff;
-  font-size: 3rem;
+  font-size: var(--header-font-size);
   text-align: center;
   padding-bottom: 4rem;
 }

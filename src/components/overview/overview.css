@@ -8,11 +8,12 @@
   width: 40vw;
 }
 .overview-intro > h1 {
-  font-size: 3.5rem;
+  font-size: var(--header-font-size);
+  margin-bottom: 1.5rem;
 }
 
 .overview-intro > p {
-  font-size: 1.2rem;
+  font-size: var(--description-font-size);
   font-weight: 500;
 }
 
@@ -23,4 +24,29 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4rem;
+}
+
+@media (max-width: 950px) {
+  .overview-intro {
+    width: 50vw;
+  }
+  .overview-cards {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1frs);
+    column-gap: 10rem;
+  }
+}
+@media (max-width: 680px) {
+  .overview-cards {
+    column-gap: 2rem;
+  }
+}
+@media (max-width: 490px) {
+  .overview-intro {
+    width: 90vw;
+  }
+  .overview-cards {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1frs);
+  }
 }

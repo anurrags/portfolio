@@ -33,14 +33,14 @@
   gap: 2rem;
 }
 .intro-span {
-  font-size: 4.5rem;
+  font-size: var(--header-font-size);
 }
 .intro-span:hover {
   color: var(--blue);
   filter: drop-shadow(0 0 12px var(--blue));
 }
 .intro-h2 {
-  font-size: 1.5rem;
+  font-size: var(--subheading-font-size);
   color: var(--pink-terminal);
 }
 .intro-h2-gt {
@@ -50,7 +50,7 @@
   animation: flickering 2s linear 0.5s both;
 }
 .resume-btn {
-  font-size: 1.3rem;
+  font-size: var(--description-font-size);
   margin-top: 20px;
   padding: 0.8rem 2rem;
   width: fit-content;

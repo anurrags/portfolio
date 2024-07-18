@@ -11,14 +11,14 @@
   outline: none;
   background: linear-gradient(90deg, rgb(25, 25, 25) 40%, rgb(41, 33, 66) 100%);
   color: #fffcfc;
-  font-size: 1.1rem;
+  font-size: var(--description-font-size);
   margin-bottom: 0.7rem;
 }
 .contact-form-btn {
   color: #fff;
   font-weight: 600;
   align-self: center;
-  font-size: 1.2rem;
+  font-size: var(--description-font-size);
   padding: 1rem 4rem;
   width: fit-content;
   background-color: var(--ligth-purple);

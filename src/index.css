@@ -36,6 +36,37 @@
 
   --font-robot: "Roboto", sans-serif;
   --font-montserrat: "Montserrat", sans-serif;
+
+  --header-font-size: 3.5rem;
+  --description-font-size: 1.3rem;
+  --subheading-font-size: 2rem;
+  --header-tab-font-size: 2.8rem;
+  --description-tab-font-size: 1rem;
+  --subheading-tab-font-size: 1.6rem;
+  --header-mobile-font-size: 2rem;
+  --description-mobile-font-size: 0.6rem;
+  --subheading-mobile-font-size: 1.2rem;
+}
+@media (max-width: 1080px) {
+  :root {
+    --header-font-size: 2.8rem;
+    --description-font-size: 1rem;
+    --subheading-font-size: 1.6rem;
+  }
+}
+@media (max-width: 786px) {
+  :root {
+    --header-font-size: 2rem;
+    --description-font-size: 1.2rem;
+    --subheading-font-size: 1.5rem;
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --header-font-size: 2rem;
+    --description-font-size: 1.1rem;
+    --subheading-font-size: 1.3rem;
+  }
 }
 * {
   scroll-behavior: smooth;

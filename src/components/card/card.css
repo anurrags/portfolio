@@ -28,7 +28,7 @@
   align-items: center;
 }
 .card-container div h1 {
-  font-size: 1.5rem;
+  font-size: var(--subheading-font-size);
 }
 .card-svg {
   height: 68px;
@@ -67,7 +67,7 @@
 }
 .gradient-border:hover .card-container .card-desc {
   opacity: 100;
-  font-size: 1.3rem;
+  font-size: var(--description-font-size);
   font-weight: 700;
 }
 .gradient-border:hover .card-container div {
@@ -75,4 +75,15 @@
 }
 .gradient-border:hover .card-container div .card-svg {
   animation: none;
+}
+
+@media (max-width: 1080px) {
+  .card-container {
+    height: 10rem;
+  }
+}
+@media (max-width: 500px) {
+  .card-container {
+    padding: 2rem 1rem;
+  }
 }

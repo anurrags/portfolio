@@ -11,7 +11,7 @@
 }
 .logo {
   display: inline;
-  font-size: 2rem;
+  font-size: var(--subheading-font-size);
   justify-self: start;
   color: #fcedd8;
   font-family: "Niconne", cursive;
@@ -26,13 +26,12 @@
   gap: 2rem;
   padding: 1.5rem;
   color: var(--seccond-color);
-  font-size: 1.8rem;
   font-weight: 500;
   text-shadow: -0.1rem 0rem 0rem var(--main-color);
   justify-self: end;
 }
 .navbar-link {
-  font-size: 1.2rem;
+  font-size: var(--description-font-size);
 }
 .nav-bar-list > li {
   transition: transform 0.3s ease-in-out;
