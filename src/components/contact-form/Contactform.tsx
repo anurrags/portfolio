@@ -1,66 +1,48 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./contactform.css";
 
-const Contactform: React.FC = () => {
-  const navigate = useNavigate();
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const myForm = event.currentTarget;
-    const formData = new FormData(myForm);
-
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData.toString()).toString(),
-    })
-      .then(() => navigate("/thank-you/"))
-      .catch((error) => alert(error));
-  };
-
+const Contactform = () => {
   return (
     <div className="contact-form-container">
       <form
         name="contact"
         className="contact-form"
         data-netlify="true"
-        method="POST"
-        onSubmit={handleSubmit}
+        action="https://api.staticforms.xyz/submit"
+        method="post"
       >
-        {/* Hidden input for form name */}
-        <input type="hidden" name="form-name" value="contact" />
-
-        {/* Form fields */}
+        <input
+          type="hidden"
+          name="accessKey"
+          value={process.env.REACT_APP_EMAIL_API}
+        />
+        <input type="text" name="honeypot" style={{ display: "none" }} />
         <input
           className="contact-form-input"
-          type="text"
+          type="name"
           name="name"
           placeholder="Your Name"
-          required
         />
         <input
           className="contact-form-input"
           type="email"
           name="email"
+          id=""
           placeholder="E-mail"
-          required
         />
         <input
           className="contact-form-input"
-          type="text"
+          type="subject"
           name="subject"
           placeholder="Write a Subject"
         />
         <textarea
           className="contact-form-input"
           name="message"
+          id=""
           cols={30}
           rows={10}
           placeholder="Your Message"
-          required
-        ></textarea>
+        />
         <button className="contact-form-btn" type="submit">
           Submit
         </button>
