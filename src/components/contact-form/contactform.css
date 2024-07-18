@@ -14,6 +14,7 @@
   color: #fffcfc;
   font-size: var(--description-font-size);
   margin-bottom: 0.7rem;
+  resize: none;
 }
 .contact-form-btn {
   color: #fff;

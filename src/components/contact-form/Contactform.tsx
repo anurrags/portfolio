@@ -2,9 +2,6 @@ import "./contactform.css";
 const Contactform = () => {
   return (
     <div className="contact-form-container">
-      <h1>
-        Contact <span className="us">Me</span>
-      </h1>
       <form
         name="contact"
         className="contact-form"
