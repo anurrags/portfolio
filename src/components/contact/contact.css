@@ -11,9 +11,13 @@
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: 5rem;
+  align-items: center;
 }
 .form-container {
   padding-left: 4rem;
+}
+.email-success-div {
+  padding-top: 2rem;
 }
 .contact-img {
   height: 30rem;

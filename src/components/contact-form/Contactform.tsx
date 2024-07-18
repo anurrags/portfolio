@@ -1,21 +1,23 @@
+import { useForm, ValidationError } from "@formspree/react";
 import "./contactform.css";
 
 const Contactform = () => {
+  const [state, handleSubmit] = useForm("xldrdyjr");
+  if (state.succeeded) {
+    return (
+      <div className="email-success-div">
+        <h1 className="email-success-message">
+          Your message has been successfully sent!
+        </h1>
+        <br />
+        <h1 className="email-success-message">Thanks for contacting!</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="contact-form-container">
-      <form
-        name="contact"
-        className="contact-form"
-        data-netlify="true"
-        action="https://api.staticforms.xyz/submit"
-        method="post"
-      >
-        <input
-          type="hidden"
-          name="accessKey"
-          value={process.env.REACT_APP_EMAIL_API}
-        />
-        <input type="text" name="honeypot" style={{ display: "none" }} />
+      <form name="contact" className="contact-form" onSubmit={handleSubmit}>
         <input
           className="contact-form-input"
           type="name"
@@ -29,6 +31,7 @@ const Contactform = () => {
           id=""
           placeholder="E-mail"
         />
+        <ValidationError prefix="Email" field="email" errors={state.errors} />
         <input
           className="contact-form-input"
           type="subject"
@@ -43,7 +46,16 @@ const Contactform = () => {
           rows={10}
           placeholder="Your Message"
         />
-        <button className="contact-form-btn" type="submit">
+        <ValidationError
+          prefix="Message"
+          field="message"
+          errors={state.errors}
+        />
+        <button
+          className="contact-form-btn"
+          type="submit"
+          disabled={state.submitting}
+        >
           Submit
         </button>
       </form>
