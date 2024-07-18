@@ -19,3 +19,31 @@
   height: 30rem;
   align-self: center;
 }
+
+@media (max-width: 950px) {
+  .contact-img {
+    height: 25rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .contact-img {
+    height: 22rem;
+  }
+}
+@media (max-width: 815px) {
+  .contact-img {
+    height: 20rem;
+  }
+}
+@media (max-width: 815px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+  .form-container {
+    padding-right: 4rem;
+  }
+  .contact-img {
+    display: none;
+  }
+}

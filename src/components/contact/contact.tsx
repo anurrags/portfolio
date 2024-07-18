@@ -3,7 +3,7 @@ import "./contact.css";
 
 const contact = () => {
   return (
-    <div className="contact-main-div">
+    <div className="contact-main-div" id="contact">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="curve-svg curve-svg-contact rotated-curve"

@@ -110,6 +110,7 @@
     transform: translateY(0);
   }
 }
+
 .icon-1 {
   top: 150px;
   left: 110px;
@@ -269,5 +270,166 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 950px) {
+  .user-photo {
+    height: 30rem;
+  }
+  .social_icon {
+    width: 54px;
+    height: 54px;
+  }
+  .icon-3 {
+    right: 180px;
+  }
+  .icon-4 {
+    right: 170px;
+  }
+}
+@media (max-width: 820px) {
+  .hero-container {
+    padding-bottom: 5rem;
+  }
+  .user-photo {
+    height: 25rem;
+  }
+  .social_icon {
+    width: 42px;
+    height: 42px;
+  }
+  .icon-1 {
+    left: 90px;
+  }
+  .icon-2 {
+    left: 100px;
+  }
+  .icon-3 {
+    right: 160px;
+  }
+  .icon-4 {
+    right: 150px;
+  }
+}
+@media (max-width: 700px) {
+  .hero-main-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    height: 100vh;
+  }
+  .main-content-intro {
+    order: 2;
+  }
+  .main-content-icons {
+    order: 1;
+    text-align: center;
+  }
+  .icon-1 {
+    left: 190px;
+  }
+  .icon-2 {
+    left: 180px;
+    bottom: 110px;
+  }
+  .icon-3 {
+    right: 250px;
+  }
+  .icon-4 {
+    right: 240px;
+    bottom: 110px;
+  }
+}
+@media (max-width: 640px) {
+  .icon-1 {
+    left: 170px;
+  }
+  .icon-2 {
+    left: 160px;
+  }
+  .icon-3 {
+    right: 230px;
+  }
+  .icon-4 {
+    right: 220px;
+  }
+}
+
+@media (max-width: 580px) {
+  .icon-1 {
+    left: 140px;
+  }
+  .icon-2 {
+    left: 130px;
+  }
+  .icon-3 {
+    right: 200px;
+  }
+  .icon-4 {
+    right: 190px;
+  }
+}
+
+@media (max-width: 540px) {
+  .icon-1 {
+    left: 110px;
+  }
+  .icon-2 {
+    left: 100px;
+  }
+  .icon-3 {
+    right: 160px;
+  }
+  .icon-4 {
+    right: 150px;
+  }
+}
+
+@media (max-width: 450px) {
+  .user-photo {
+    height: 20rem;
+  }
+  .social_icon {
+    width: 36px;
+    height: 36px;
+  }
+  .icon-1 {
+    left: 80px;
+  }
+  .icon-2 {
+    left: 70px;
+    bottom: 90px;
+  }
+  .icon-3 {
+    right: 140px;
+  }
+  .icon-4 {
+    right: 130px;
+    bottom: 90px;
+  }
+}
+
+@media (max-width: 359px) {
+  .user-photo {
+    height: 18rem;
+  }
+  .social_icon {
+    width: 30px;
+    height: 30px;
+  }
+  .icon-1 {
+    left: 80px;
+  }
+  .icon-2 {
+    left: 70px;
+    bottom: 70px;
+  }
+  .icon-3 {
+    right: 120px;
+  }
+  .icon-4 {
+    right: 110px;
+    bottom: 70px;
   }
 }

@@ -20,3 +20,22 @@
 .skill-carousel {
   width: inherit;
 }
+
+@media (max-width: 700px) {
+  .skill-container {
+    margin: 2rem 0;
+    grid-template-columns: 1fr;
+    padding-left: 0rem;
+  }
+  .skill-text {
+    padding: 0 0 2rem 2rem;
+    box-shadow: none;
+  }
+  .skill-carousel {
+    padding-bottom: 3rem;
+  }
+  .carousel-svg {
+    height: 4rem;
+    width: 4rem;
+  }
+}
