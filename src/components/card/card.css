@@ -29,6 +29,7 @@
 }
 .card-container div h1 {
   font-size: var(--subheading-font-size);
+  text-align: center;
 }
 .card-svg {
   height: 68px;
