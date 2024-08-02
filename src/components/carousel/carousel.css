@@ -9,7 +9,7 @@
   padding: 2rem;
   overflow-x: hidden;
   white-space: nowrap;
-  animation: infiniteSlide 12s linear infinite;
+  animation: infiniteSlide 24s linear infinite;
   height: 100%;
 }
 .carousel-container:hover {
@@ -38,15 +38,25 @@
   display: none;
 }
 .item:hover {
-  transform: scale(1.04) rotate(-1deg);
+  animation: rotate-and-blur 1s forwards;
 }
 .item:hover .carousel-svg {
   height: 3rem;
-  filter: blur(16px);
-  animation: anim 3s infinite;
+  animation: anim 1s infinite;
+  animation: carousel-svg-blur 0.4s forwards;
 }
 .item:hover .item-title {
   display: inline;
+}
+@keyframes rotate-and-blur {
+  100% {
+    transform: scale(1.1) rotate(-2deg);
+  }
+}
+@keyframes carousel-svg-blur {
+  100% {
+    filter: blur(8px);
+  }
 }
 @keyframes infiniteSlide {
   from {

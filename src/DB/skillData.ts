@@ -22,6 +22,11 @@ const skillDatas: skillData[] = [
     title: "Javascript",
   },
   {
+    imgSrc: "./svg/typescript-fill.svg",
+    imgAlt: "Typescript icon",
+    title: "Typescript",
+  },
+  {
     imgSrc: "./svg/react-dark.svg",
     imgAlt: "React icon",
     title: "React",
@@ -32,9 +37,39 @@ const skillDatas: skillData[] = [
     title: "Node.js",
   },
   {
+    imgSrc: "./svg/express-js.svg",
+    imgAlt: "Express.js icon",
+    title: "Express.js",
+  },
+  {
+    imgSrc: "./svg/java.svg",
+    imgAlt: "Java icon",
+    title: "JAVA",
+  },
+  {
+    imgSrc: "./svg/spring-boot.svg",
+    imgAlt: "Springboot icon",
+    title: "SpringBoot",
+  },
+  {
+    imgSrc: "./svg/c.svg",
+    imgAlt: "C icon",
+    title: "C",
+  },
+  {
+    imgSrc: "./svg/cpp.svg",
+    imgAlt: "C++ icon",
+    title: "C++",
+  },
+  {
     imgSrc: "./svg/npm-wordmark.svg",
-    imgAlt: "Wordpress icon",
+    imgAlt: "NPM icon",
     title: "npm",
+  },
+  {
+    imgSrc: "./svg/mongo-db.png",
+    imgAlt: "MongoDB icon",
+    title: "MongoDB",
   },
   {
     imgSrc: "./svg/mysql.svg",
