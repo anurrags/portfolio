@@ -6,3 +6,5 @@ export { default as Experience } from "./experience";
 export { default as Timeline } from "./timeline";
 export { default as Skill } from "./skill";
 export { default as Contact } from "./contact";
+export { default as ScrollButton } from "./scroll-button/ScrollButton";
+export { default as Footer } from "./footer/Footer";

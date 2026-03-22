@@ -7,6 +7,8 @@ import {
   Hero,
   Overview,
   Skill,
+  ScrollButton,
+  Footer,
 } from "./components";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
       <Experience />
       <Skill />
       <Contact />
+      <Footer />
+      <ScrollButton />
     </div>
   );
 }

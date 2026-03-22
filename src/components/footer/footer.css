@@ -1,0 +1,19 @@
+.footer-section {
+  padding: 2rem 0;
+  text-align: center;
+  background-color: var(--surface-container-lowest);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-text {
+  color: var(--on-surface-variant);
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.footer-text span {
+  color: var(--primary);
+  font-weight: 600;
+}
