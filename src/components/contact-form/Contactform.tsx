@@ -3,63 +3,67 @@ import "./contactform.css";
 
 const Contactform = () => {
   const [state, handleSubmit] = useForm("xldrdyjr");
+  
   if (state.succeeded) {
     return (
-      <div className="email-success-div">
-        <h1 className="email-success-message">
-          Your message has been successfully sent!
-        </h1>
-        <br />
-        <h1 className="email-success-message">Thanks for contacting!</h1>
+      <div className="success-message-container">
+        <h3 className="success-message">
+          Transmission Received!
+        </h3>
+        <p style={{ color: "var(--on-surface-variant)" }}>
+          Thanks for reaching out. I'll get back to you soon.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="contact-form-container">
-      <form name="contact" className="contact-form" onSubmit={handleSubmit}>
+    <form name="contact" className="contact-form" onSubmit={handleSubmit}>
+      <div className="input-group">
+        <label className="form-label">Your Identity</label>
         <input
-          className="contact-form-input"
-          type="name"
+          className="form-input"
+          type="text"
           name="name"
-          placeholder="Your Name"
+          placeholder="NAME / ORGANIZATION"
+          required
         />
+      </div>
+      
+      <div className="input-group">
+        <label className="form-label">Digital Link</label>
         <input
-          className="contact-form-input"
+          className="form-input"
           type="email"
           name="email"
-          id=""
-          placeholder="E-mail"
+          placeholder="EMAIL ADDRESS"
+          required
         />
         <ValidationError prefix="Email" field="email" errors={state.errors} />
-        <input
-          className="contact-form-input"
-          type="subject"
-          name="subject"
-          placeholder="Write a Subject"
-        />
+      </div>
+      
+      <div className="input-group input-group-full">
+        <label className="form-label">The Objective</label>
         <textarea
-          className="contact-form-input"
+          className="form-input form-textarea"
           name="message"
-          id=""
-          cols={30}
-          rows={10}
-          placeholder="Your Message"
+          rows={4}
+          placeholder="BRIEF MISSION DESCRIPTION"
+          required
         />
-        <ValidationError
-          prefix="Message"
-          field="message"
-          errors={state.errors}
-        />
+        <ValidationError prefix="Message" field="message" errors={state.errors} />
+      </div>
+      
+      <div className="input-group-full" style={{ paddingTop: "1.5rem" }}>
         <button
-          className="contact-form-btn"
+          className="submit-btn"
           type="submit"
           disabled={state.submitting}
         >
-          Submit
+          SEND SIGNAL
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 
