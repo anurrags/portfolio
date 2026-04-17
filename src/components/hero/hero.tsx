@@ -22,9 +22,9 @@ const Hero = () => {
           </p>
           
           <div className="hero-buttons">
-            <a href="./docs/Anurag_resume.pdf" target="_blank" rel="noopener noreferrer">
+            <a href={import.meta.env.VITE_RESUME_URL || "#"} target="_blank" rel="noopener noreferrer">
               <button className="btn-primary">
-                DOWNLOAD RESUME
+                VIEW RESUME
               </button>
             </a>
             <a href="#contact">
