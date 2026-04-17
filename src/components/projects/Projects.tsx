@@ -43,6 +43,14 @@ const Projects = () => {
             </div>
           ))}
         </div>
+
+        <div className="more-projects-message" style={{ textAlign: "center", marginTop: "4rem" }}>
+          <p style={{ color: "var(--on-surface-variant)", fontSize: "1.1rem" }}>
+            Sure, making interfaces look pretty is fun, but the real wizardry happens under the hood. 🔮 
+            <br />
+            From <strong>hyper-scalable APIs</strong> to <strong>relentless backend architectures</strong>, you can dive into the heavy lifting over on my <a href="https://github.com/anurrags" target="_blank" rel="noopener noreferrer" style={{ color: "var(--primary)", fontWeight: "600", textDecoration: "none" }}>GitHub Profile</a>.
+          </p>
+        </div>
       </div>
     </section>
   );
