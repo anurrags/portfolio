@@ -11,6 +11,7 @@ import {
   ScrollButton,
   Footer,
 } from "./components";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Contact />
       <Footer />
       <ScrollButton />
+      <Analytics />
     </div>
   );
 }
