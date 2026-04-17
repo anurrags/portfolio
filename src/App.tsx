@@ -6,6 +6,7 @@ import {
   Header,
   Hero,
   Overview,
+  Projects,
   Skill,
   ScrollButton,
   Footer,
@@ -17,6 +18,7 @@ function App() {
       <Header />
       <Hero />
       <Overview />
+      <Projects />
       <Experience />
       <Skill />
       <Contact />

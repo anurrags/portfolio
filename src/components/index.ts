@@ -3,6 +3,7 @@ export { default as Hero } from "./hero";
 export { default as Overview } from "./overview";
 export { default as Card } from "./card";
 export { default as Experience } from "./experience";
+export { default as Projects } from "./projects/Projects";
 export { default as Skill } from "./skill";
 export { default as Contact } from "./contact";
 export { default as ScrollButton } from "./scroll-button/ScrollButton";
