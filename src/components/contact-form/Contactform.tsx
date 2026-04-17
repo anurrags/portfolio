@@ -1,10 +1,49 @@
-import { useForm, ValidationError } from "@formspree/react";
+import React, { useState } from "react";
 import "./contactform.css";
 
 const Contactform = () => {
-  const [state, handleSubmit] = useForm("xldrdyjr");
-  
-  if (state.succeeded) {
+  const [status, setStatus] = useState<"idle" | "submitting" | "succeeded" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+    
+    const formData = new FormData(e.currentTarget);
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    
+    if (!accessKey) {
+      setStatus("error");
+      setErrorMessage("Configuration error: Missing Web3Forms access key.");
+      return;
+    }
+    
+    formData.append("access_key", accessKey);
+    // Optional: avoid ugly redirects if JS fails by using subjective headers
+    formData.append("subject", "New Mission Signal from Portfolio");
+    formData.append("from_name", "Anurag's Portfolio Bot");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("succeeded");
+      } else {
+        setStatus("error");
+        setErrorMessage(data.message || "Failed to transmit message.");
+      }
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage("A network error occurred. Please try again.");
+    }
+  };
+
+  if (status === "succeeded") {
     return (
       <div className="success-message-container">
         <h3 className="success-message">
@@ -39,7 +78,6 @@ const Contactform = () => {
           placeholder="EMAIL ADDRESS"
           required
         />
-        <ValidationError prefix="Email" field="email" errors={state.errors} />
       </div>
       
       <div className="input-group input-group-full">
@@ -51,16 +89,23 @@ const Contactform = () => {
           placeholder="BRIEF MISSION DESCRIPTION"
           required
         />
-        <ValidationError prefix="Message" field="message" errors={state.errors} />
       </div>
+
+      {status === "error" && (
+        <div className="input-group-full" style={{ paddingTop: "1rem" }}>
+          <p style={{ color: "#ef4444", fontSize: "0.875rem", margin: "0", fontFamily: "var(--font-label)" }}>
+            [ERROR_CODE]: {errorMessage}
+          </p>
+        </div>
+      )}
       
       <div className="input-group-full" style={{ paddingTop: "1.5rem" }}>
         <button
           className="submit-btn"
           type="submit"
-          disabled={state.submitting}
+          disabled={status === "submitting"}
         >
-          SEND SIGNAL
+          {status === "submitting" ? "TRANSMITTING..." : "SEND SIGNAL"}
         </button>
       </div>
     </form>
