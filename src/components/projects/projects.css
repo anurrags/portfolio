@@ -2,7 +2,7 @@
   padding: 8rem 0;
   position: relative;
   z-index: 2;
-  background: var(--dark-purple);
+  background-color: var(--surface-container-lowest);
 }
 
 .projects-container {
@@ -35,12 +35,14 @@
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
 }
 
 .project-card {
+  flex: 0 1 320px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -167,8 +169,8 @@
     font-size: 2rem;
   }
   
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .project-card {
+    flex-basis: 100%;
   }
   
   .project-overlay {

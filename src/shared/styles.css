@@ -1,0 +1,1441 @@
+/* Self-hosted, so the LAN tools still render correctly with no internet. */
+@import '@fontsource-variable/ibm-plex-sans/index.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/700.css';
+
+/* ==========================================================================
+   Design tokens — dark-only (OLED), slate surfaces with a "run green" accent.
+   Nothing below this block should contain a raw colour value.
+   ========================================================================== */
+
+:root {
+  /* Surfaces, darkest to lightest */
+  --bg: #0f172a;
+  --surface: #172033;
+  --surface-raised: #1e293b;
+  --surface-hover: #24314a;
+  --muted: #272f42;
+
+  /* Text — both pass 4.5:1 on --bg and on --surface */
+  --fg: #f8fafc;
+  --fg-muted: #94a3b8;
+  --fg-subtle: #64748b;
+
+  /* Lines: hairline for structure, strong for emphasis */
+  --border: #263248;
+  --border-strong: #475569;
+
+  /* Accent. Green is bright, so it always carries dark text. */
+  --accent: #22c55e;
+  --accent-hover: #4ade80;
+  --accent-fg: #052e16;
+  --accent-soft: rgba(34, 197, 94, 0.14);
+
+  --info: #38bdf8;
+  --warn: #fbbf24;
+  --danger: #ef4444;
+
+  /* Type */
+  --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Scale: 12 13 14 16 18 22 28 */
+  --text-2xs: 0.75rem;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+
+  /* 4px rhythm */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  /* One elevation scale, used consistently */
+  --shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.4);
+  --shadow-md: 0 4px 16px rgba(2, 6, 23, 0.45);
+
+  --ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  --dur: 180ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Minimum comfortable hit area */
+  --tap: 44px;
+
+  --z-overlay: 100;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* No `overflow-x: hidden` here: with `height: 100%` it turns body into a
+     viewport-height scroll container, and content taller than the viewport
+     then gets clipped instead of scrolling. Horizontal overflow is prevented
+     structurally instead — `minmax(0, 1fr)` grids, `min-width: 0` flex
+     children, and `overflow-wrap` on long strings. */
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: var(--text-xl);
+}
+
+h2 {
+  font-size: var(--text-base);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+/* Keyboard focus must always be visible; never remove the ring. */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: var(--radius-sm);
+}
+
+.icon {
+  flex: none;
+  display: block;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* ---------------------------------------------------------------- text */
+
+.muted {
+  color: var(--fg-muted);
+}
+
+.subtle {
+  color: var(--fg-subtle);
+}
+
+.error {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: flex-start;
+  margin: 0;
+  color: #fca5a5;
+  font-size: var(--text-xs);
+}
+
+.note {
+  /* Keeps explanatory copy in the readable 45–75 character band. */
+  max-width: 60ch;
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  /* Stops digits jittering as counters and sizes change. */
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------------------- layout */
+
+.centered {
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  padding: var(--sp-5);
+}
+
+/* `margin: auto` rather than `align-items: center`: flex centring pushes
+   overflow past the *start* edge, which makes the top of a tall card
+   unreachable on a short viewport (a landscape phone). Auto margins centre
+   while keeping everything scrollable. */
+.centered > * {
+  margin: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  width: 100%;
+  max-width: 26rem;
+  padding: var(--sp-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.card-wide {
+  max-width: 40rem;
+  max-height: min(88vh, 52rem);
+  overflow-y: auto;
+}
+
+.card-head {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  border: none;
+  background: var(--border);
+}
+
+.row {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+}
+
+.row-wrap {
+  flex-wrap: wrap;
+}
+
+.brandmark {
+  display: inline-flex;
+  gap: var(--sp-2);
+  align-items: center;
+  /* Stays a real tap target once the wordmark is hidden on small screens. */
+  min-width: var(--tap);
+  min-height: var(--tap);
+  justify-content: center;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.brandmark .icon {
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------ controls */
+
+.control {
+  display: inline-flex;
+  gap: var(--sp-2);
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+.control:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--fg-subtle);
+}
+
+.control:active:not(:disabled) {
+  /* Colour-only feedback: no layout shift, no jitter. */
+  background: var(--muted);
+}
+
+.control:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.control-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+}
+
+.control-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.control-primary:active:not(:disabled) {
+  background: var(--accent);
+}
+
+.control-quiet {
+  border-color: transparent;
+  background: transparent;
+  color: var(--fg-muted);
+}
+
+.control-quiet:hover:not(:disabled) {
+  background: var(--surface-hover);
+  border-color: var(--border);
+  color: var(--fg);
+}
+
+.control-block {
+  display: flex;
+  width: 100%;
+}
+
+.control-grow {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Icon-only: square, and still a full tap target. */
+.control-icon {
+  min-width: var(--tap);
+  padding: 0;
+}
+
+.control-sm {
+  min-height: 36px;
+  padding: 0 var(--sp-3);
+  font-size: var(--text-xs);
+}
+
+input.control,
+select.control {
+  font-weight: 400;
+  text-align: left;
+  cursor: text;
+}
+
+input.control::placeholder {
+  color: var(--fg-subtle);
+}
+
+select.control {
+  padding-right: var(--sp-8);
+  /* Custom chevron, since the native one can't be themed. */
+  background-image: linear-gradient(45deg, transparent 50%, var(--fg-muted) 50%),
+    linear-gradient(135deg, var(--fg-muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% + 2px),
+    calc(100% - 12px) calc(50% + 2px);
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  appearance: none;
+}
+
+input.control:focus-visible,
+select.control:focus-visible {
+  border-color: var(--accent);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.field-label {
+  color: var(--fg);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.field-label .muted {
+  font-weight: 400;
+}
+
+.checkbox {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  min-height: var(--tap);
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+/* Custom checkbox: the native control can't be themed to match the system,
+   and rendered as a bare light square it read as unstyled. */
+.checkbox input {
+  position: relative;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  cursor: pointer;
+  appearance: none;
+  transition:
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.checkbox input:hover {
+  border-color: var(--fg-subtle);
+}
+
+.checkbox input:checked {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+/* The tick, drawn from two borders so no extra asset is needed. */
+.checkbox input:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--accent-fg);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox:has(input:checked) {
+  color: var(--fg);
+}
+
+.checkbox .icon {
+  color: var(--fg-subtle);
+}
+
+.button-group {
+  display: flex;
+  gap: var(--sp-1);
+}
+
+.link-button {
+  padding: var(--sp-1) 0;
+  border: none;
+  background: none;
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--fg);
+}
+
+/* --------------------------------------------------------------- status */
+
+.badge {
+  display: inline-flex;
+  gap: var(--sp-1);
+  align-items: center;
+  padding: 3px var(--sp-2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+}
+
+.badge-accent {
+  background: var(--accent-soft);
+  color: var(--accent-hover);
+}
+
+.status {
+  display: inline-flex;
+  gap: var(--sp-2);
+  align-items: center;
+  color: var(--fg-muted);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-ready {
+  color: var(--accent);
+}
+
+.status-connecting,
+.status-offline {
+  color: var(--warn);
+}
+
+.status-denied {
+  color: var(--danger);
+}
+
+/* Colour is never the only signal — the adjacent label states it too. */
+.dot-ready {
+  background: var(--accent);
+}
+
+.dot-connecting {
+  background: var(--warn);
+}
+
+.dot-failed,
+.dot-closed {
+  background: var(--danger);
+}
+
+/* ---------------------------------------------------------------- room */
+
+.room {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.appbar {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.appbar-left,
+.appbar-right {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  min-width: 0;
+}
+
+.editor-wrap {
+  flex: 1;
+  min-height: 0;
+  background: var(--bg);
+}
+
+.editor-host,
+.editor-host .cm-editor {
+  height: 100%;
+}
+
+.editor-host .cm-editor.cm-focused {
+  outline: none;
+}
+
+/* ------------------------------------------------------------ presence */
+
+.presence {
+  display: flex;
+  align-items: center;
+  padding-left: var(--sp-1);
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: -6px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  color: #0b1220;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 700;
+}
+
+.avatar-self {
+  cursor: pointer;
+}
+
+.presence-rename {
+  width: 8.5rem;
+  min-height: 36px;
+  padding: 0 var(--sp-2);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--fg);
+  font: inherit;
+  font-size: var(--text-xs);
+}
+
+.presence-empty {
+  color: var(--fg-subtle);
+  font-size: var(--text-xs);
+}
+
+/* --------------------------------------------------------------- share */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  /* Strong enough to isolate the dialog from the editor behind it. */
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(3px);
+  animation: fade-in var(--dur) var(--ease);
+}
+
+.share-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.preview {
+  max-height: 13rem;
+  overflow: auto;
+  border-radius: var(--radius);
+}
+
+.flash {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  align-self: center;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  animation: rise var(--dur) var(--ease);
+}
+
+/* ---------------------------------------------------------------- drop */
+
+.drop {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.drop-sub {
+  font-size: var(--text-xs);
+}
+
+.drop-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: start;
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-10);
+}
+
+.drop-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.drop-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.drop-heading {
+  font-size: var(--text-sm);
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  align-items: center;
+  padding: var(--sp-8) var(--sp-5);
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--dur) var(--ease),
+    background var(--dur) var(--ease);
+}
+
+.dropzone:hover {
+  border-color: var(--accent);
+  background: var(--surface-raised);
+}
+
+.dropzone-active {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.dropzone-idle,
+.dropzone-idle:hover {
+  border-color: var(--border);
+  background: var(--surface);
+  cursor: default;
+}
+
+.dropzone-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--sp-1);
+  border-radius: 50%;
+  background: var(--muted);
+  color: var(--accent);
+}
+
+.dropzone-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.peer-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.peer-chip {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  min-height: var(--tap);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--fg);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--dur) var(--ease),
+    background var(--dur) var(--ease);
+}
+
+.peer-chip:hover:not(:disabled) {
+  border-color: var(--border-strong);
+}
+
+.peer-chip:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.peer-chip-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.peer-chip-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.peer-name {
+  font-weight: 600;
+}
+
+.peer-state {
+  font-size: var(--text-2xs);
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-row {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  padding: var(--sp-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.file-dir {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  color: var(--fg-muted);
+}
+
+.file-dir-in {
+  color: var(--accent);
+}
+
+.file-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.file-name {
+  overflow: hidden;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-meta {
+  font-size: var(--text-2xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress {
+  overflow: hidden;
+  height: 4px;
+  margin-top: var(--sp-1);
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  transition: width var(--dur) linear;
+}
+
+.qr {
+  align-self: center;
+  padding: var(--sp-3);
+  border-radius: var(--radius);
+  background: #fff;
+  line-height: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.code-display {
+  display: flex;
+  align-self: center;
+  gap: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+
+.code-display span {
+  color: var(--accent);
+}
+
+.code-input {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.18em;
+  text-align: center !important;
+}
+
+.drop-url {
+  overflow-wrap: anywhere;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-align: center;
+}
+
+.drop-url-alt {
+  display: block;
+  overflow-wrap: anywhere;
+  margin-top: var(--sp-1);
+  font-family: var(--font-mono);
+}
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: var(--radius);
+  background: rgba(251, 191, 36, 0.07);
+  font-size: var(--text-xs);
+}
+
+.callout-head {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  color: var(--warn);
+  font-weight: 600;
+}
+
+.callout-list {
+  margin: 0;
+  padding-left: var(--sp-5);
+  color: var(--fg-muted);
+  line-height: 1.65;
+}
+
+.callout-list li + li {
+  margin-top: var(--sp-2);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: var(--text-xs);
+}
+
+.details-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--border);
+}
+
+.details-row {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.details-row code {
+  overflow-wrap: anywhere;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  text-align: right;
+}
+
+.footer-actions {
+  gap: var(--sp-5);
+  margin-top: var(--sp-1);
+}
+
+/* ------------------------------------------------------------- motion */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ================================ responsive ==============================
+   Mobile-first: everything above is the 375px layout. These only add.
+   ========================================================================= */
+
+/* The tagline is nice-to-have; it wraps and crowds the bar on a phone. */
+.drop-tagline {
+  display: none;
+}
+
+/* While waiting, pairing is the whole job — put it first on a narrow screen. */
+@media (max-width: 899px) {
+  .drop-body-waiting .drop-aside {
+    order: -1;
+  }
+}
+
+@media (min-width: 640px) {
+  .appbar {
+    padding: var(--sp-3) var(--sp-5);
+  }
+
+  .drop-tagline {
+    display: inline;
+  }
+
+  .drop-body {
+    padding: var(--sp-8) var(--sp-6) var(--sp-10);
+  }
+
+  .dropzone {
+    padding: var(--sp-10) var(--sp-8);
+  }
+}
+
+@media (min-width: 900px) {
+  h1 {
+    font-size: var(--text-2xl);
+  }
+
+  /* Side-by-side only when there is genuinely room for both columns. */
+  .drop-body {
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    gap: var(--sp-6);
+  }
+
+  .drop-body-wide {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 44rem;
+  }
+}
+
+/* Small phones: reclaim every pixel of width. */
+@media (max-width: 400px) {
+  .card {
+    padding: var(--sp-5) var(--sp-4);
+  }
+
+  .control {
+    padding: 0 var(--sp-3);
+  }
+
+  .code-display {
+    font-size: var(--text-xl);
+  }
+
+  .file-row {
+    gap: var(--sp-2);
+    padding: var(--sp-2);
+  }
+
+  /* The direction glyph is redundant once space is this tight. */
+  .file-dir {
+    display: none;
+  }
+}
+
+/* Touch input needs the full 44px regardless of a control's visual size.
+   `.control-sm` is a density choice for mouse users; it must not shrink the
+   hit area on a phone. */
+@media (max-width: 560px), (hover: none) {
+  .control-sm {
+    min-height: var(--tap);
+  }
+
+  .control-sm.control-icon,
+  .appbar .control-primary {
+    min-width: var(--tap);
+  }
+}
+
+/* The avatar stays 28px so overlapping stack reads correctly, but the
+   clickable one gets a 44px hit area via a pseudo-element. */
+.avatar-self {
+  position: relative;
+}
+
+.avatar-self::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--tap);
+  height: var(--tap);
+  transform: translate(-50%, -50%);
+}
+
+/* Coarse pointers get no hover styling — it sticks after a tap. */
+@media (hover: none) {
+  .control:hover:not(:disabled),
+  .dropzone:hover,
+  .peer-chip:hover:not(:disabled) {
+    background: inherit;
+    border-color: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* h1 can carry a leading icon; keep it optically aligned with the text. */
+h1 .icon {
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: var(--sp-1);
+  color: var(--accent);
+}
+
+/* The editor toolbar has the most to fit; shed the least useful parts first. */
+.lang-select {
+  max-width: 9.5rem;
+}
+
+/* Visually hidden but still announced by screen readers. */
+.visually-hidden,
+.appbar-collapse .status-label,
+.appbar-collapse .brand-word {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  /* The dot and the brandmark still convey state and identity. */
+  .status-label,
+  .brand-word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .lang-select {
+    max-width: 6.5rem;
+  }
+}
+
+@media (max-width: 420px) {
+  /* Undo/redo have keyboard shortcuts; the Share action does not. */
+  .history-group {
+    display: none;
+  }
+
+  .share-word {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ============================ page content ============================== */
+
+.drop-intro {
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) 0;
+}
+
+.drop-h1 {
+  font-size: var(--text-xl);
+}
+
+.drop-lede {
+  max-width: 62ch;
+  margin-top: var(--sp-2);
+  color: var(--fg-muted);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-10);
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-10);
+  border-top: 1px solid var(--border);
+}
+
+.prose-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.prose-h2 {
+  font-size: var(--text-lg);
+}
+
+/* Steps */
+
+.steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.step {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  padding: var(--sp-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.step-num {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-hover);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.step-title,
+.feature-title {
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* Features */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+}
+
+.feature {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+
+.feature-icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* FAQ */
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.faq-item-open {
+  border-color: var(--border-strong);
+}
+
+.faq h3 {
+  margin: 0;
+  font: inherit;
+}
+
+.faq-q {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--sp-3) var(--sp-4);
+  border: none;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.faq-q:hover {
+  color: var(--accent-hover);
+}
+
+.faq-chevron {
+  flex: none;
+  color: var(--fg-subtle);
+  transition: transform var(--dur) var(--ease);
+}
+
+.faq-item-open .faq-chevron {
+  transform: rotate(90deg);
+}
+
+.faq-a {
+  padding: 0 var(--sp-4) var(--sp-4);
+}
+
+.prose-footer {
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border);
+}
+
+@media (min-width: 640px) {
+  .drop-intro {
+    padding: var(--sp-8) var(--sp-6) 0;
+  }
+
+  .prose {
+    padding: var(--sp-8) var(--sp-6) var(--sp-10);
+  }
+
+  .drop-h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .steps,
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* The drop landing has explanatory content below the card, so the card sits
+   near the top instead of being centred in a full viewport — otherwise a tall
+   screen shows a large void before "How it works". */
+.drop-hero {
+  display: flex;
+  justify-content: center;
+  padding: var(--sp-8) var(--sp-4) var(--sp-10);
+}
+
+@media (min-width: 640px) {
+  .drop-hero {
+    padding: var(--sp-10) var(--sp-6);
+  }
+}

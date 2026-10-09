@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "build",
+  "rewrites": [
+    { "source": "/editor", "destination": "/editor.html" },
+    { "source": "/editor/:id", "destination": "/document.html" },
+    { "source": "/drop", "destination": "/drop.html" }
+  ],
+  "headers": [
+    {
+      "source": "/editor/:id",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

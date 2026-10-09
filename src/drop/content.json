@@ -1,0 +1,79 @@
+{
+  "name": "Share via WiFi",
+  "tagline": "Send files between your phone and laptop over WiFi — no internet, no uploads",
+  "shortDescription": "A free browser tool that sends files directly between two devices on the same WiFi network. Files travel device to device over an encrypted peer-to-peer connection and are never uploaded to a server.",
+  "steps": [
+    {
+      "title": "Open it on both devices",
+      "body": "No app to install and no account to create. Any modern browser works — iPhone, Android, Mac, Windows or Linux."
+    },
+    {
+      "title": "Pair with a code or QR",
+      "body": "One device shows a six-digit pairing code and a QR. Scan the QR with the other device and the two are paired instantly — the code is carried in the link."
+    },
+    {
+      "title": "Send the file",
+      "body": "Pick files or drag them in. They transfer straight to the other device over your WiFi, with live progress, and you save them where you like."
+    }
+  ],
+  "features": [
+    {
+      "title": "Your files never reach a server",
+      "body": "Transfers run over a direct WebRTC data channel between the two browsers. The server only introduces the devices to each other — a few kilobytes of handshake — and never sees a single byte of your file."
+    },
+    {
+      "title": "Works without internet",
+      "body": "Everything happens over your local WiFi. A router with no internet connection is enough, which makes it useful on planes, in hotels, at sites with no data, or anywhere you would rather not upload a private file."
+    },
+    {
+      "title": "Encrypted end to end",
+      "body": "WebRTC data channels are DTLS-encrypted by design, so the transfer is encrypted between the two devices without any extra setup."
+    },
+    {
+      "title": "No size limit imposed",
+      "body": "Files are streamed in chunks rather than loaded into memory, so large files work. A 256 MB transfer uses under 10 MB of memory on either device."
+    },
+    {
+      "title": "Nothing is stored",
+      "body": "There is no database and no upload directory. Pairing codes expire after 30 minutes of inactivity, and a received file exists only in the receiving browser until you save it."
+    },
+    {
+      "title": "Any device with a browser",
+      "body": "iPhone to Windows, Android to Mac, laptop to laptop. There is no platform pairing to worry about because it is all just web pages."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Do I need an internet connection to share files?",
+      "a": "No. Both devices need to be on the same WiFi network, but that network does not need internet access. The transfer itself happens directly between the two devices over the local network."
+    },
+    {
+      "q": "Are my files uploaded to a server?",
+      "a": "No. Files move directly between the two browsers over a peer-to-peer WebRTC connection. The server is used only to exchange a small connection handshake, and never receives the file contents."
+    },
+    {
+      "q": "Can I share files over mobile data instead of WiFi?",
+      "a": "No, and this is deliberate. There is no relay server and no STUN fallback, so a device on mobile data has no address the other device can reach. Both devices must be on the same WiFi network."
+    },
+    {
+      "q": "What is the maximum file size?",
+      "a": "No limit is imposed by the tool. Files are streamed in small chunks, so neither device holds the whole file in memory. In practice the ceiling is the receiving browser's storage, which means hundreds of megabytes are comfortable on any device and multi-gigabyte transfers generally work between two computers."
+    },
+    {
+      "q": "Do I need to install an app?",
+      "a": "No. It runs entirely in the browser on both devices. There is nothing to install, no account to create and no permissions to grant."
+    },
+    {
+      "q": "Is it safe to share private files this way?",
+      "a": "The connection is DTLS-encrypted between the two devices and the file never touches a server. Pairing requires a six-digit code, so only the device you deliberately pair with can receive anything."
+    },
+    {
+      "q": "Why can my devices see each other but the transfer will not start?",
+      "a": "That usually means the network blocks device-to-device traffic. Guest networks and routers with AP isolation or client isolation prevent two devices from reaching each other directly. Turning off any VPN on either device also helps, since a VPN routes traffic away from the local network."
+    },
+    {
+      "q": "How many devices can I connect at once?",
+      "a": "More than two can be paired to the same code, but each transfer goes to one device at a time. Browsers cannot multicast, so sending to three devices means three separate transfers."
+    }
+  ]
+}
