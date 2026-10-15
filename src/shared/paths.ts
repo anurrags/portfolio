@@ -9,12 +9,12 @@
  * Keep in sync with the rewrites in vercel.json.
  */
 
-export const EDITOR_HOME = '/editor'
+export const EDITOR_HOME = '/tools/editor'
 
 export function editorDocument(roomId: string): string {
   return `${EDITOR_HOME}/${encodeURIComponent(roomId)}`
 }
 
-export const DROP_HOME = '/drop'
+export const DROP_HOME = '/tools/drop'
 
 export const RENT_VS_BUY_HOME = '/tools/rent-vs-buy-calculator'

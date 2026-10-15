@@ -5,6 +5,7 @@ import { Icon } from '../../shared/Icon'
 import { LANGUAGES } from '../codemirror/languages'
 import { editorDocument } from '../../shared/paths'
 import { apiUrl } from '../../shared/config'
+import { EditorContent } from '../components/EditorContent'
 
 export function Home() {
   const navigate = useNavigate()
@@ -40,16 +41,17 @@ export function Home() {
   }
 
   return (
-    <div className="centered">
-      <div className="card">
-        <div className="card-title">
-          <h1>
-            <Icon name="code" size={20} /> notepad
-          </h1>
-          <p className="muted">
-            A shared code editor. Create a document, send the link, type together.
-          </p>
-        </div>
+    <>
+      <div className="drop-hero">
+        <div className="card">
+          <div className="card-title">
+            <h1 className="drop-h1">
+              <Icon name="code" size={20} /> Collaborative Code Editor
+            </h1>
+            <p className="drop-lede">
+              A shared real-time code editor. Create a document, send the link, type together.
+            </p>
+          </div>
 
         <div className="field">
           <label className="field-label" htmlFor="language">
@@ -148,5 +150,7 @@ export function Home() {
         </p>
       </div>
     </div>
+    <EditorContent />
+  </>
   )
 }

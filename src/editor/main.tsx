@@ -21,6 +21,7 @@ createRoot(container).render(
       <Routes>
         <Route path={EDITOR_HOME} element={<Home />} />
         <Route path={`${EDITOR_HOME}/:roomId`} element={<Room />} />
+        <Route path="/editor" element={<Navigate to={EDITOR_HOME} replace />} />
         <Route path="*" element={<Navigate to={EDITOR_HOME} replace />} />
       </Routes>
     </BrowserRouter>

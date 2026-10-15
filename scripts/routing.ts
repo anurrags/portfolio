@@ -10,7 +10,12 @@ import { fileURLToPath } from 'node:url'
 const here = path.dirname(fileURLToPath(import.meta.url))
 export const PORTFOLIO_ROOT = path.resolve(here, '..')
 
-export type Rule = { source: string; destination?: string; headers?: { key: string; value: string }[] }
+export type Rule = {
+  source: string
+  destination?: string
+  headers?: { key: string; value: string }[]
+  permanent?: boolean
+}
 export type CompiledRule = Rule & { re: RegExp }
 
 /** vercel.json `source` → RegExp, for the forms used: literals, `:param`, `:param*`, `(.*)`. */
@@ -26,11 +31,20 @@ export function toRegExp(source: string): RegExp {
   return new RegExp(`^${pattern}$`)
 }
 
-export function loadVercelRules(): { rewrites: CompiledRule[]; headers: CompiledRule[] } {
+export function loadVercelRules(): {
+  rewrites: CompiledRule[]
+  headers: CompiledRule[]
+  redirects: CompiledRule[]
+} {
   const config = JSON.parse(readFileSync(path.join(PORTFOLIO_ROOT, 'vercel.json'), 'utf8')) as {
     rewrites?: Rule[]
     headers?: Rule[]
+    redirects?: Rule[]
   }
   const compile = (rules: Rule[] = []) => rules.map((rule) => ({ ...rule, re: toRegExp(rule.source) }))
-  return { rewrites: compile(config.rewrites), headers: compile(config.headers) }
+  return {
+    rewrites: compile(config.rewrites),
+    headers: compile(config.headers),
+    redirects: compile(config.redirects),
+  }
 }

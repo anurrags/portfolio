@@ -1,0 +1,71 @@
+{
+  "name": "Collaborative Code Editor",
+  "tagline": "Share code, pair program, and type together in real time — right in your browser",
+  "shortDescription": "Free online real-time collaborative code editor. Create a document, share the link, and type together with live cursors, syntax highlighting for 20+ languages, and password protection with zero signup required.",
+  "steps": [
+    {
+      "title": "Pick a language & create a document",
+      "body": "Choose from 20+ programming languages including Python, JavaScript, TypeScript, Rust, Go, C++, Java, and SQL. Optionally set a password to keep the session private. No signup or account needed."
+    },
+    {
+      "title": "Share the unique room link",
+      "body": "Send the document link to a collaborator, candidate, or friend. Anyone with the URL can join instantly from any modern web browser on Mac, Windows, Linux, or mobile."
+    },
+    {
+      "title": "Type together in real time",
+      "body": "Collaborate seamlessly with live multiplayer synchronization powered by WebSockets and CRDTs. See color-coded active cursors and copy formatted code with syntax highlighting intact."
+    }
+  ],
+  "features": [
+    {
+      "title": "Real-time multiplayer synchronization",
+      "body": "Powered by Conflict-free Replicated Data Types (Yjs CRDTs) and high-speed WebSockets, edits merge instantly and conflict-free without lag or text overwrites."
+    },
+    {
+      "title": "20+ programming languages supported",
+      "body": "Syntax highlighting, bracket matching, and smart indentation for Python, JavaScript, TypeScript, Rust, Go, C++, Java, SQL, HTML, CSS, JSON, YAML, PHP, and more."
+    },
+    {
+      "title": "Zero signup & ephemeral privacy",
+      "body": "Documents live strictly in temporary memory and are permanently wiped when everyone leaves. Nothing is saved to a database or stored on disk."
+    },
+    {
+      "title": "Password-protected rooms",
+      "body": "Optional room passwords safeguard private code reviews, live technical interviews, or sensitive brainstorming sessions."
+    },
+    {
+      "title": "Rich formatted clipboard copy",
+      "body": "Copy code directly into Notion, Confluence, Slack, or Google Docs with colors and syntax styling preserved, while terminal pastes remain clean source code."
+    },
+    {
+      "title": "Lightweight & cross-platform",
+      "body": "Runs at 60 FPS in any standard browser without heavy IDE extensions, native installs, or dependencies."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Do I or my collaborators need an account to use this editor?",
+      "a": "No. There is no signup, login, or OAuth required. Simply click 'New document' and share the generated link. Anyone with the link can start typing immediately."
+    },
+    {
+      "q": "How does real-time collaboration work?",
+      "a": "The editor is built on Conflict-free Replicated Data Types (CRDTs via Yjs) over low-latency WebSockets. Edits merge deterministically without race conditions or locks, even if two developers type on the exact same line simultaneously."
+    },
+    {
+      "q": "Is my code saved or stored on a server database?",
+      "a": "No. Documents are strictly ephemeral and held in memory only for the duration of the active session. Once everyone leaves the room, the session and document are permanently discarded from memory. Nothing is ever written to disk."
+    },
+    {
+      "q": "Can I password-protect my code session?",
+      "a": "Yes. When creating a new document, check 'Protect with a password'. Collaborators must enter this password to view or edit the room's code."
+    },
+    {
+      "q": "Which programming languages and syntax highlighters are available?",
+      "a": "Over 20 languages are supported with native CodeMirror 6 parsers, including Python, JavaScript, TypeScript, Rust, Go, C++, C, Java, SQL, HTML, CSS, JSON, YAML, PHP, Markdown, and XML."
+    },
+    {
+      "q": "Can I copy code out with syntax highlighting intact?",
+      "a": "Yes. The editor copies both clean plaintext and rich formatted HTML to your clipboard simultaneously. Pasting into rich-text applications (Notion, Google Docs, Confluence) preserves colors and fonts, while pasting into a terminal or code editor inserts pure plaintext."
+    }
+  ]
+}
