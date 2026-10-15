@@ -47,7 +47,7 @@ function publicOrigin(): string | null {
   const configured = process.env.PUBLIC_ORIGIN?.trim().replace(/\/+$/, '')
   if (configured) return configured
   const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
-  return vercel ? `https://${vercel}` : null
+  return vercel ? `https://${vercel}` : 'https://anurags.in'
 }
 
 function seoBlock(origin: string | null, route: string): string {

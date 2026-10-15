@@ -5,6 +5,33 @@
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.footer-tools-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.footer-dot {
+  color: var(--outline-variant, rgba(255, 255, 255, 0.2));
+  font-size: 0.75rem;
+}
+
 .footer-text {
   color: var(--on-surface-variant);
   font-family: var(--font-label);
