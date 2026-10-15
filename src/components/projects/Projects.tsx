@@ -32,11 +32,7 @@ const Projects = () => {
               </div>
               
               <div className="project-content">
-                <h3 className="project-card-title">
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-                    {project.title}
-                  </a>
-                </h3>
+                <h3 className="project-card-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>
                 <div className="project-tags">
                   {project.tags.map((tag, tagIndex) => (

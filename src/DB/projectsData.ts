@@ -9,14 +9,6 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
-    title: "Rent vs Buy Calculator",
-    description: "An interactive Indian financial decision engine comparing 20-year net wealth, home loan EMIs, tax shields (Sec 24b/80C vs HRA), and investment compounding.",
-    url: "/tools/rent-vs-buy-calculator",
-    thumbnail: "/projects/rentvsbuy.png",
-    github: "https://github.com/anurrags/portfolio/tree/main/src/tools/rent-vs-buy",
-    tags: ["React", "TypeScript", "Finance Engine", "SEO"]
-  },
-  {
     title: "Multiplayer Chess Game",
     description: "A real-time multiplayer chess application built with WebSockets, enabling live matches between players globally.",
     url: "https://chess.anurags.in",
