@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import site from '../content.json'
 import { Icon } from '../../shared/Icon'
-import { EDITOR_HOME } from '../../shared/paths'
+import { EDITOR_HOME, RENT_VS_BUY_HOME } from '../../shared/paths'
 
 /**
  * Explanatory page content below the tool.
@@ -83,8 +83,9 @@ export function DropContent() {
 
       <footer className="prose-footer">
         <p className="note">
-          {site.name} runs entirely in your browser. Looking for something else? Try the{' '}
-          <a href={EDITOR_HOME}>collaborative code editor</a> on the same site.
+          {site.name} runs entirely in your browser. Looking for other tools? Try the{' '}
+          <a href={EDITOR_HOME}>collaborative code editor</a> or the{' '}
+          <a href={RENT_VS_BUY_HOME}>rent vs buy calculator</a> on this site.
         </p>
       </footer>
     </div>

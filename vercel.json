@@ -1,13 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "build",
+  "redirects": [
+    { "source": "/editor", "destination": "/tools/editor", "permanent": true },
+    { "source": "/editor/:id", "destination": "/tools/editor/:id", "permanent": true },
+    { "source": "/drop", "destination": "/tools/drop", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/editor", "destination": "/editor.html" },
-    { "source": "/editor/:id", "destination": "/document.html" },
-    { "source": "/drop", "destination": "/drop.html" },
+    { "source": "/tools/editor", "destination": "/editor.html" },
+    { "source": "/tools/editor/:id", "destination": "/document.html" },
+    { "source": "/tools/drop", "destination": "/drop.html" },
     { "source": "/tools/rent-vs-buy-calculator", "destination": "/rent-vs-buy-calculator.html" }
   ],
   "headers": [
+    {
+      "source": "/tools/editor/:id",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
     {
       "source": "/editor/:id",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]

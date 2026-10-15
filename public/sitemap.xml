@@ -13,15 +13,15 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://anurags.in/editor</loc>
+    <loc>https://anurags.in/tools/editor</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://anurags.in/drop</loc>
+    <loc>https://anurags.in/tools/drop</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 </urlset>

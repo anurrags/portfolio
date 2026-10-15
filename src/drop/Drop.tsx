@@ -17,6 +17,7 @@ import {
 import { useDropNetwork, type DropPeer } from './network/useDropNetwork'
 import site from './content.json'
 import { loadUser } from '../shared/user'
+import { DROP_HOME } from '../shared/paths'
 
 type Gate =
   | { status: 'checking' }
@@ -223,12 +224,12 @@ export function Drop() {
   const lanHost = session.lanAddresses[0]
   const base = lanHost ? pageUrlOn(lanHost) : window.location.origin
   // The fragment carries the code, so a scanned QR pairs without anyone typing.
-  const shareUrl = `${base}/drop#${code}`
+  const shareUrl = `${base}${DROP_HOME}#${code}`
 
   // True when this page itself is on an address the other device can't use.
   const onUnreachableOrigin =
     session.lanAddresses.length > 0 && !session.lanAddresses.includes(window.location.hostname)
-  const selfUrl = `${base}/drop${window.location.hash}`
+  const selfUrl = `${base}${DROP_HOME}${window.location.hash}`
   const canSend = Boolean(target)
   const stuck = net.peers.length > 0 && readyPeers.length === 0
 
@@ -538,7 +539,7 @@ export function Drop() {
                   This machine has more than one network address. If the first doesn't load, try:{' '}
                   {session.lanAddresses.slice(1).map((host) => (
                     <code key={host} className="drop-url-alt">
-                      {pageUrlOn(host)}/drop#{code}
+                      {pageUrlOn(host)}{DROP_HOME}#{code}
                     </code>
                   ))}
                 </p>

@@ -25,13 +25,15 @@ import { headTagsFor } from './seo.ts'
 const PLACEHOLDER = '<title>notepad</title>'
 const SEO_START = '<!--seo-->'
 const SEO_END = '<!--/seo-->'
-const DOCUMENT_ROUTE = '/editor/_'
+const DOCUMENT_ROUTE = '/tools/editor/_'
 
 /** Which route a service HTML file is being rendered for. */
 function routeFor(filename: string, requestPath: string | undefined): string | null {
-  if (filename.endsWith('/drop.html')) return '/drop'
+  if (filename.endsWith('/drop.html')) return '/tools/drop'
   if (filename.endsWith('/editor.html')) {
-    return requestPath && /^\/editor\/[^/]+/.test(requestPath) ? DOCUMENT_ROUTE : '/editor'
+    return requestPath && (/^\/tools\/editor\/[^/]+/.test(requestPath) || /^\/editor\/[^/]+/.test(requestPath))
+      ? DOCUMENT_ROUTE
+      : '/tools/editor'
   }
   if (filename.endsWith('/rent-vs-buy-calculator.html')) {
     return '/tools/rent-vs-buy-calculator'
@@ -61,7 +63,7 @@ type Middleware = (req: IncomingMessage, res: ServerResponse, next: () => void) 
  * `rename` maps a rewrite destination to a file that exists on that server.
  */
 function servicesMiddleware(rename: (destination: string) => string, withHeaders: boolean): Middleware {
-  const { rewrites, headers } = loadVercelRules()
+  const { rewrites, headers, redirects } = loadVercelRules()
   return (req, res, next) => {
     const url = new URL(req.url ?? '/', 'http://localhost')
 
@@ -69,6 +71,15 @@ function servicesMiddleware(rename: (destination: string) => string, withHeaders
       proxyRequest(req, res)
       return
     }
+
+    const redirect = redirects.find((rule) => rule.re.test(url.pathname))
+    if (redirect?.destination) {
+      const target = url.pathname.replace(redirect.re, redirect.destination)
+      res.writeHead(301, { Location: target + url.search })
+      res.end()
+      return
+    }
+
     if (withHeaders) {
       for (const rule of headers) {
         if (rule.re.test(url.pathname)) for (const header of rule.headers ?? []) res.setHeader(header.key, header.value)
@@ -100,8 +111,8 @@ function printServiceUrls(httpServer: HttpServer, logger: Logger): void {
       .find((entry) => entry && entry.family === 'IPv4' && !entry.internal && /^(192\.168|10\.|172\.(1[6-9]|2\d|3[01]))\./.test(entry.address))
     // After Vite's own banner.
     setTimeout(() => {
-      logger.info(`  ➜  Editor:     http://localhost:${port}/editor`)
-      logger.info(`  ➜  File drop:  http://${lan ? lan.address : 'localhost'}:${port}/drop`)
+      logger.info(`  ➜  Editor:     http://localhost:${port}/tools/editor`)
+      logger.info(`  ➜  File drop:  http://${lan ? lan.address : 'localhost'}:${port}/tools/drop`)
       logger.info(`  ➜  Calculator: http://localhost:${port}/tools/rent-vs-buy-calculator\n`)
     }, 0)
   })

@@ -23,9 +23,13 @@ type Site = {
   faq: Faq[]
 }
 
-/** Shared with the client, so the visible FAQ and the JSON-LD cannot drift. */
-const site: Site = JSON.parse(
+/** Shared with the client, so visible FAQs and the JSON-LD cannot drift. */
+const dropSite: Site = JSON.parse(
   readFileSync(path.resolve(here, '../src/drop/content.json'), 'utf8'),
+) as Site
+
+const editorSite: Site = JSON.parse(
+  readFileSync(path.resolve(here, '../src/editor/content.json'), 'utf8'),
 ) as Site
 
 type PageMeta = {
@@ -40,16 +44,18 @@ type PageMeta = {
 }
 
 const EDITOR: PageMeta = {
-  title: 'Collaborative code editor — share code in your browser | notepad',
+  title: 'Online Collaborative Code Editor — Real-Time Pair Programming in Your Browser | ANURAG.DEV',
   description:
-    'A free real-time collaborative code editor in the browser. Create a document, send one link, and type together with live cursors and syntax highlighting for 20 languages. Copy code out with its formatting intact.',
+    'Free real-time collaborative code editor in the browser. Share a link, type together with live cursors, syntax highlighting for 20+ languages, and password protection with zero signup required.',
   robots: 'index, follow',
+  faq: true,
   app: true,
 }
 
 const DROP: PageMeta = {
-  title: `${site.name} — send files between phone and laptop over WiFi, no internet`,
-  description: site.shortDescription,
+  title: 'Share via WiFi — Transfer Files Between Phone and PC Without Internet | ANURAG.DEV',
+  description:
+    'Free peer-to-peer browser tool to transfer files directly between phone and laptop (iOS, Android, Mac, Windows) over local WiFi without internet, cloud uploads, or app installs.',
   robots: 'index, follow',
   faq: true,
   app: true,
@@ -66,13 +72,13 @@ const RENT_VS_BUY: PageMeta = {
 
 /** Documents are unguessable capability URLs — never index them. */
 const DOCUMENT: PageMeta = {
-  title: 'Shared document | notepad',
-  description: 'A shared code document.',
+  title: 'Shared document | Collaborative Code Editor',
+  description: 'A private shared collaborative code document.',
   robots: 'noindex, nofollow',
 }
 
 const NOT_FOUND: PageMeta = {
-  title: 'Not found | notepad',
+  title: 'Not found | ANURAG.DEV Tools',
   description: 'Nothing here.',
   robots: 'noindex, follow',
 }
@@ -83,11 +89,11 @@ const NOT_FOUND: PageMeta = {
  */
 export function metaForPath(pathname: string): PageMeta {
   const path = pathname.replace(/\/+$/, '')
-  if (path === '/editor') return EDITOR
-  if (path === '/drop') return DROP
+  if (path === '/tools/editor' || path === '/editor') return EDITOR
+  if (path === '/tools/drop' || path === '/drop') return DROP
   if (path === '/tools/rent-vs-buy-calculator') return RENT_VS_BUY
-  // `/editor/<id>` is a document: an unguessable, editable capability URL.
-  if (path.startsWith('/editor/')) return DOCUMENT
+  // Document capability URLs — never index them.
+  if (path.startsWith('/tools/editor/') || path.startsWith('/editor/')) return DOCUMENT
   return NOT_FOUND
 }
 
@@ -126,7 +132,14 @@ const CALCULATOR_FAQS: Faq[] = [
 ]
 
 function faqJsonLd(pathname: string): string {
-  const faqs = pathname === '/tools/rent-vs-buy-calculator' ? CALCULATOR_FAQS : site.faq
+  const path = pathname.replace(/\/+$/, '')
+  const faqs =
+    path === '/tools/rent-vs-buy-calculator'
+      ? CALCULATOR_FAQS
+      : path === '/tools/editor' || path === '/editor'
+      ? editorSite.faq
+      : dropSite.faq
+
   return `{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[${faqs
     .map(
       (entry) =>
@@ -138,9 +151,18 @@ function faqJsonLd(pathname: string): string {
 function appJsonLd(origin: string, url: string, meta: PageMeta): string {
   const isCalc = meta === RENT_VS_BUY
   const isDrop = meta === DROP
-  const appName = isCalc ? 'Rent vs Buy Calculator' : isDrop ? site.name : 'notepad'
-  const appCategory = isCalc ? 'FinanceApplication' : 'UtilitiesApplication'
-  const publisherName = isCalc ? 'ANURAG.DEV' : 'notepad'
+  const appName = isCalc
+    ? 'Rent vs Buy Calculator'
+    : isDrop
+    ? 'Share via WiFi'
+    : 'Collaborative Code Editor'
+  const appCategory = isCalc
+    ? 'FinanceApplication'
+    : isDrop
+    ? 'UtilitiesApplication'
+    : 'DeveloperApplication'
+  const publisherName = 'ANURAG.DEV'
+
   return `{"@context":"https://schema.org","@type":"SoftwareApplication","name":${escapeJsonLd(
     appName,
   )},"url":${escapeJsonLd(url)},"applicationCategory":${escapeJsonLd(appCategory)},"operatingSystem":"Any device with a web browser","browserRequirements":"Requires JavaScript","description":${escapeJsonLd(
@@ -159,7 +181,7 @@ function appJsonLd(origin: string, url: string, meta: PageMeta): string {
 export function headTagsFor(origin: string | null, pathname: string): string {
   const meta = metaForPath(pathname)
   const url = origin ? `${origin}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}` : null
-  const siteName = meta === RENT_VS_BUY ? 'ANURAG.DEV' : 'notepad'
+  const siteName = 'ANURAG.DEV'
 
   const tags = [
     `<title>${escapeHtml(meta.title)}</title>`,
@@ -188,4 +210,4 @@ export function headTagsFor(origin: string | null, pathname: string): string {
   return tags.join('\n    ')
 }
 
-export const siteContent = site
+export const siteContent = dropSite
