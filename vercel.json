@@ -4,7 +4,8 @@
   "rewrites": [
     { "source": "/editor", "destination": "/editor.html" },
     { "source": "/editor/:id", "destination": "/document.html" },
-    { "source": "/drop", "destination": "/drop.html" }
+    { "source": "/drop", "destination": "/drop.html" },
+    { "source": "/tools/rent-vs-buy-calculator", "destination": "/rent-vs-buy-calculator.html" }
   ],
   "headers": [
     {
