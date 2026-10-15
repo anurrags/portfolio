@@ -23,7 +23,8 @@ export default defineConfig({
       input: {
         main: 'index.html',
         editor: 'editor.html',
-        drop: 'drop.html'
+        drop: 'drop.html',
+        rentVsBuy: 'rent-vs-buy-calculator.html'
       }
     }
   }

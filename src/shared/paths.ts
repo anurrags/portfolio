@@ -16,3 +16,5 @@ export function editorDocument(roomId: string): string {
 }
 
 export const DROP_HOME = '/drop'
+
+export const RENT_VS_BUY_HOME = '/tools/rent-vs-buy-calculator'

@@ -33,6 +33,9 @@ function routeFor(filename: string, requestPath: string | undefined): string | n
   if (filename.endsWith('/editor.html')) {
     return requestPath && /^\/editor\/[^/]+/.test(requestPath) ? DOCUMENT_ROUTE : '/editor'
   }
+  if (filename.endsWith('/rent-vs-buy-calculator.html')) {
+    return '/tools/rent-vs-buy-calculator'
+  }
   return null
 }
 
@@ -44,7 +47,7 @@ function publicOrigin(): string | null {
   const configured = process.env.PUBLIC_ORIGIN?.trim().replace(/\/+$/, '')
   if (configured) return configured
   const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim()
-  return vercel ? `https://${vercel}` : null
+  return vercel ? `https://${vercel}` : 'https://anurags.in'
 }
 
 function seoBlock(origin: string | null, route: string): string {
@@ -97,8 +100,9 @@ function printServiceUrls(httpServer: HttpServer, logger: Logger): void {
       .find((entry) => entry && entry.family === 'IPv4' && !entry.internal && /^(192\.168|10\.|172\.(1[6-9]|2\d|3[01]))\./.test(entry.address))
     // After Vite's own banner.
     setTimeout(() => {
-      logger.info(`  ➜  Editor:    http://localhost:${port}/editor`)
-      logger.info(`  ➜  File drop: http://${lan ? lan.address : 'localhost'}:${port}/drop\n`)
+      logger.info(`  ➜  Editor:     http://localhost:${port}/editor`)
+      logger.info(`  ➜  File drop:  http://${lan ? lan.address : 'localhost'}:${port}/drop`)
+      logger.info(`  ➜  Calculator: http://localhost:${port}/tools/rent-vs-buy-calculator\n`)
     }, 0)
   })
 }
