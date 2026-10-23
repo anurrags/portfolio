@@ -2,6 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "build",
   "redirects": [
+    { "source": "/tools", "destination": "/", "permanent": false },
+    { "source": "/tools/", "destination": "/", "permanent": false },
     { "source": "/editor", "destination": "/tools/editor", "permanent": true },
     { "source": "/editor/:id", "destination": "/tools/editor/:id", "permanent": true },
     { "source": "/drop", "destination": "/tools/drop", "permanent": true }
